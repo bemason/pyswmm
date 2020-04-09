@@ -1315,8 +1315,7 @@ class PySWMM(object):
                                                           ctypes.byref(_month),
                                                           ctypes.byref(_day),
                                                           ctypes.byref(_hours),
-                                                          ctypes.byref(
-                                                              _minutes),
+                                                          ctypes.byref(_minutes),
                                                           ctypes.byref(_seconds))
         self._error_check(errcode)
         if errcode == 0:
