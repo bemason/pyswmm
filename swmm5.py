@@ -2060,6 +2060,19 @@ class PySWMM(object):
         errcode = self.SWMMlibobj.swmm_getNodePollutant(index, pollutant_index, ctypes.byref(result))
         self._error_check(errcode)
         return result.value
+    
+    def getNodeCin(self, ID, pollutant_index):
+        """
+        Get the pollutant concentration in a node 
+        :param str ID: Node ID
+        :param int NUMPOLLUTANT: Number of pollutants 
+        :return: Pollutant as list 
+        """
+        index = self.getObjectIDIndex(tka.ObjectType.NODE.value, ID)
+        result = ctypes.c_double()
+        errcode = self.SWMMlibobj.swmm_getNodeCin(index, pollutant_index, ctypes.byref(result))
+        self._error_check(errcode)
+        return result.value
 
     def getLinkPollutant(self, ID, pollutant_index):
         """
