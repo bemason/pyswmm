@@ -77,7 +77,6 @@ class NodeParams(Enum):
     surDepth = 2  # double
     pondedArea = 3  # double
     initDepth = 4  # double
-    externalTreatment = 5   # flag to turn on external treatment (int)
 
 class NodeResults(Enum):
     totalinflow = 0  # Total Inflow
@@ -109,7 +108,7 @@ class LinkParams(Enum):
     cLossInlet = 4  # double
     cLossOutlet = 5  # double
     cLossAvg = 6  # double
-    externalTreatment = 7   # flag to turn on external treatment (int)
+    seepRate = 7  
 
 
 class LinkResults(Enum):
