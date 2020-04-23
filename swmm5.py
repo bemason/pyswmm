@@ -2074,6 +2074,20 @@ class PySWMM(object):
         self._error_check(errcode)
         return result.value
 
+    def getNodeHRT(self, ID):
+        """
+        Get HRT (hours) for a Node.
+
+        :param str ID: Node ID
+        :return: HRT
+        :rtype: float
+        """
+        index = self.getObjectIDIndex(tka.ObjectType.NODE.value, ID)
+        result = ctypes.c_double()
+        errcode = self.SWMMlibobj.swmm_getNodeHRT(index, ctypes.byref(result))
+        self._error_check(errcode)
+        return result.value    
+
     def getLinkPollutant(self, ID, pollutant_index):
         """
         Get the pollutant concentration in a node 
@@ -2110,7 +2124,6 @@ class PySWMM(object):
         p = ctypes.c_double(pollutant)
         errcode = self.SWMMlibobj.swmm_setLinkPollutant(index, pollutant_index, p)
         self._error_check(errcode)
-
 
 if __name__ == '__main__':
     test = PySWMM(
