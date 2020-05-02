@@ -2048,25 +2048,25 @@ class PySWMM(object):
         errcode = self.SWMMlibobj.swmm_setGagePrecip(index, val)
         self._error_check(errcode)
 
-    def getNodePollutant(self, ID, pollutant_index):
+    def getNodeC2(self, ID, pollutant_index):
         """
-        Get the pollutant concentration in a node 
+        Get the pollutant concentration in a node after findStorageQual
         :param str ID: Node ID
-        :param int NUMPOLLUTANT: Number of pollutants 
-        :return: Pollutant as list 
+        :param int NUMPOLLUTANT: Number of pollutant 
+        :return: float 
         """
         index = self.getObjectIDIndex(tka.ObjectType.NODE.value, ID)
         result = ctypes.c_double()
-        errcode = self.SWMMlibobj.swmm_getNodePollutant(index, pollutant_index, ctypes.byref(result))
+        errcode = self.SWMMlibobj.swmm_getNodeC2(index, pollutant_index, ctypes.byref(result))
         self._error_check(errcode)
         return result.value
     
     def getNodeCin(self, ID, pollutant_index):
         """
-        Get the pollutant concentration in a node 
+        Get effluent concentration in a node 
         :param str ID: Node ID
-        :param int NUMPOLLUTANT: Number of pollutants 
-        :return: Pollutant as list 
+        :param int NUMPOLLUTANT: Number of pollutant 
+        :return: float 
         """
         index = self.getObjectIDIndex(tka.ObjectType.NODE.value, ID)
         result = ctypes.c_double()
@@ -2077,7 +2077,6 @@ class PySWMM(object):
     def getNodeHRT(self, ID):
         """
         Get HRT (hours) for a Node.
-
         :param str ID: Node ID
         :return: HRT
         :rtype: float
@@ -2088,16 +2087,16 @@ class PySWMM(object):
         self._error_check(errcode)
         return result.value    
 
-    def getLinkPollutant(self, ID, pollutant_index):
+    def getLinkC2(self, ID, pollutant_index):
         """
-        Get the pollutant concentration in a node 
+        Get the pollutant concentration in a link after findLinkQual
         :param str ID: Node ID
         :param int NUMPOLLUTANT: Number of pollutants 
         :return: Pollutant as list 
         """
         index = self.getObjectIDIndex(tka.ObjectType.LINK.value, ID)
         result = ctypes.c_double()
-        errcode = self.SWMMlibobj.swmm_getLinkPollutant(index, pollutant_index, ctypes.byref(result))
+        errcode = self.SWMMlibobj.swmm_getLinkC2(index, pollutant_index, ctypes.byref(result))
         self._error_check(errcode)
         return result.value
         
@@ -2105,8 +2104,7 @@ class PySWMM(object):
         """
         Set the pollutant concentration in a node 
         :param str ID: Node ID
-        :param int NUMPOLLUTANT: Number of pollutants 
-        :return: Pollutant as list 
+        :param int NUMPOLLUTANT: Number of pollutant  
         """
         index = self.getObjectIDIndex(tka.ObjectType.NODE.value, ID)
         p = ctypes.c_double(pollutant)
@@ -2115,10 +2113,9 @@ class PySWMM(object):
 
     def setLinkPollutant(self, ID, pollutant_index, pollutant):
         """
-        Set the pollutant concentration in a node 
-        :param str ID: Node ID
-        :param int NUMPOLLUTANT: Number of pollutants 
-        :return: Pollutant as list 
+        Set the pollutant concentration in a link 
+        :param str ID: Link ID
+        :param int NUMPOLLUTANT: Number of pollutant 
         """
         index = self.getObjectIDIndex(tka.ObjectType.LINK.value, ID)
         p = ctypes.c_double(pollutant)
