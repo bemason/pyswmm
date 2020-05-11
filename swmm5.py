@@ -2099,6 +2099,19 @@ class PySWMM(object):
         errcode = self.SWMMlibobj.swmm_getLinkC2(index, pollutant_index, ctypes.byref(result))
         self._error_check(errcode)
         return result.value
+
+    def getConduitVelocity(self, ID):
+        """
+        Get velocity for a link.
+        :param str ID: Link ID
+        :return: velocity
+        :rtype: float
+        """
+        index = self.getObjectIDIndex(tka.ObjectType.LINK.value, ID)
+        result = ctypes.c_double()
+        errcode = self.SWMMlibobj.swmm_getConduitVelocity(index, ctypes.byref(result))
+        self._error_check(errcode)
+        return result.value
         
     def setNodePollutant(self, ID, pollutant_index, pollutant):
         """
